@@ -3,9 +3,9 @@ import joblib
 import numpy as np
 
 st.set_page_config(page_title="Prediksi Obesitas", layout="centered")
-st.title("Prediksi Kategori Obesitas Berdasarkan Data Pribadi")
+st.title("Prediksi Kategori Obesitas")
 
-st.markdown("Masukkan data berikut untuk memprediksi hasil berdasarkan model **Random Forest**:")
+st.markdown("Masukkan data berikut untuk memprediksi")
 
 # Load model
 try:
