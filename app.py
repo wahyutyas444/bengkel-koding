@@ -10,9 +10,9 @@ st.markdown("Silakan isi data berikut untuk melakukan prediksi kategori obesitas
 
 # Load model
 try:
-    model = joblib.load("model_random_forest.pkl")
+    model = joblib.load("best_random_forest_model.pkl")
 except FileNotFoundError:
-    st.error("Model tidak ditemukan. Pastikan file 'model_random_forest.pkl' tersedia.")
+    st.error("Model tidak ditemukan. Pastikan file 'best_random_forest_model.pkl' tersedia.")
     st.stop()
 
 # Load scaler (jika digunakan)
