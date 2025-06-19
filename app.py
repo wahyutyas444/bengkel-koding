@@ -21,11 +21,10 @@ try:
 except FileNotFoundError:
     scaler = None
 
-# Load label encoder
+# Load label encoder (tanpa warning)
 try:
     le = joblib.load("label_encoder.pkl")
     if not isinstance(le, LabelEncoder):
-        st.warning("Label encoder yang dimuat bukan LabelEncoder asli. Mapping manual akan digunakan.")
         le = None
 except FileNotFoundError:
     le = None
@@ -56,11 +55,11 @@ if st.button("Prediksi"):
     try:
         pred = model.predict(input_data)[0]
         
-        # Jika LabelEncoder tersedia dan valid
+        # Decode jika LabelEncoder valid
         if le:
             pred_label = le.inverse_transform([pred])[0]
         else:
-            pred_label = str(pred)  # fallback jika tidak bisa di-decode
+            pred_label = str(pred)
 
         st.success(f"Hasil Prediksi: **{pred_label}**")
     except Exception as e:
