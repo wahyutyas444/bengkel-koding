@@ -15,15 +15,18 @@ except FileNotFoundError:
     st.error("Model tidak ditemukan. Pastikan file 'best_random_forest_model.pkl' tersedia.")
     st.stop()
 
-# Load scaler (jika digunakan)
+# Load scaler
 try:
     scaler = joblib.load("scaler.pkl")
 except FileNotFoundError:
     scaler = None
 
-# Load label encoder (jika target di-encode)
+# Load label encoder
 try:
     le = joblib.load("label_encoder.pkl")
+    if isinstance(le, dict):
+        st.warning("Label encoder yang dimuat bukan LabelEncoder, melainkan dictionary.")
+        le = None
 except FileNotFoundError:
     le = None
 
@@ -52,7 +55,7 @@ if st.button("Prediksi"):
     # Prediksi
     try:
         pred = model.predict(input_data)[0]
-        if le:
+        if le and hasattr(le, 'inverse_transform'):
             pred = le.inverse_transform([pred])[0]
         st.success(f"Hasil Prediksi: **{pred}**")
     except Exception as e:
